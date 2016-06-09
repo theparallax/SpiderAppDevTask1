@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">SpiderAppDevTask1</string>
+    <string name="Department_Prompt">Choose Your Department</string>
+    <string-array name="Department_array">
+        <item>CSE</item>
+        <item>ECE</item>
+        <item>EEE</item>
+        <item>MECH</item>
+        <item>ICE</item>
+        <item>CHEM</item>
+        <item>CIVIL</item>
+        <item>PROD</item>
+        <item>MME</item>
+    </string-array>
+</resources>
