@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,12 +17,15 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    int CheckBoxInput =0;           //This is to check if any one of the checkboxes are clicked
+    int CheckBoxInput = 0;           //This is to check if any one of the checkboxes are clicked
     Context mContext;
 
     TextView NameTextView;
     TextView PhoneNumberView;
-
+    CheckBox checkBox1 = (CheckBox) findViewById(R.id.checkBox);
+    CheckBox checkBox2 = (CheckBox) findViewById(R.id.checkBox2);
+    CheckBox checkBox3 = (CheckBox) findViewById(R.id.checkBox3);
+    CheckBox checkBox4 = (CheckBox) findViewById(R.id.checkBox4);
 
 
     @Override
@@ -30,53 +34,33 @@ public class MainActivity extends AppCompatActivity {
         Spinner DepartmentSpinner;
         setContentView(R.layout.activity_main);
         DepartmentSpinner = (Spinner) findViewById(R.id.DeptSpinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.Department_array,android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.Department_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         DepartmentSpinner.setAdapter(adapter);
         NameTextView = (TextView) findViewById(R.id.NameTextID);
         PhoneNumberView = (TextView) findViewById(R.id.NumberTextID);
 
     }
-    public void onBtnClick(View v){
-        if(CheckBoxInput==0){   Toast.makeText(mContext,"Choose atleast one profile",Toast.LENGTH_SHORT).show();
+
+    public void onBtnClick(View v) {
+        if (!(checkBox1.isChecked() || checkBox2.isChecked() || checkBox3.isChecked() || checkBox4.isChecked())) {
+            Toast.makeText(mContext, "Choose atleast one profile", Toast.LENGTH_SHORT).show();
+        } else {
+            if (NameTextView.getText() == "" && PhoneNumberView.getText() != "") {
+                Toast.makeText(mContext, "Name not entered", Toast.LENGTH_SHORT).show();
+
+            } else if (NameTextView.getText() != "" && PhoneNumberView.getText() == "") {
+                Toast.makeText(mContext, "Phone Number not entered", Toast.LENGTH_SHORT).show();
+            } else if (NameTextView.getText() == "" && PhoneNumberView.getText() == "") {
+                Toast.makeText(mContext, "Name and Phone Number not entered", Toast.LENGTH_SHORT).show();
+            } else {
+                Intent newIntent = new Intent(MainActivity.this, DIsplayMessageActivity.class);
+                newIntent.putExtra("Key", 0);
+                MainActivity.this.startActivity(newIntent);
+
+
+            }
         }
-        else {
-            if(NameTextView.getText()==""&&PhoneNumberView.getText()!=""){
-            Toast.makeText(mContext,"Name not entered",Toast.LENGTH_SHORT).show();
-
-        }
-        else if(NameTextView.getText()!=""&&PhoneNumberView.getText()==""){
-            Toast.makeText(mContext,"Phone Number not entered",Toast.LENGTH_SHORT).show();
-        }
-        else if(NameTextView.getText()==""&&PhoneNumberView.getText()==""){
-            Toast.makeText(mContext,"Name and Phone Number not entered",Toast.LENGTH_SHORT).show();
-        }
-        else{
-            Intent newIntent = new Intent(MainActivity.this,DIsplayMessageActivity.class);
-            newIntent.putExtra("Key",0);
-            MainActivity.this.startActivity(newIntent);
-
-
-        }
     }
-    }
-
-    public void onAlgoCheckBoxClick(View v){
-        CheckBoxInput=1;
-
-    }
-    public void onTronixCheckBoxClick(View v){
-        CheckBoxInput=1;
-
-    }
-    public void onWebDevCheckBoxClick(View v){
-        CheckBoxInput=1;
-
-    }
-    public void onAppDevCheckBoxClick(View v){
-        CheckBoxInput=1;
-
-    }
-
 
 }
